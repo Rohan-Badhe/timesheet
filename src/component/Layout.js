@@ -7,24 +7,19 @@ import { Outlet } from "react-router-dom";
 export default function Layout() {
   return (
     <>
-    <div className="d-flex">
+      <div className="d-flex">
         <Sidebar />
-        
-      <div className="flex-grow-1" >
-        <Navbar />
+
         <div className="flex-grow-1">
-          <Outlet />
-          
+          <Navbar />
+          <div className="flex-grow-1">
+            <Outlet />
+          </div>
         </div>
-        
       </div>
-      
-    
-    </div>
-     <div>
-            <Footer/>
-        </div>
-   
+      <div>
+        <Footer />
+      </div>
     </>
   );
 }

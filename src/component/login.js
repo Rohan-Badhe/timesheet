@@ -1,38 +1,93 @@
-import React from "react";
-import reactDOM from "react-dom/client";
-import Timesheet from "../assets/ts.png";
-import { Route } from "react-router-dom";
+import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-export default function Login({ onLogin, onRegister }) {
-    const navigate = useNavigate();
-return(
-   
-    <>
+
+export default function Login() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+
+    const loginData = {
+      email: email,
+      password: password,
+    };
+
+    axios
+      .post("http://192.168.0.118:8082/api/auth/login", loginData)
+      .then((response) => {
+        if (response.data.token) {
+          setMessage(" Login Successful");
+          alert("Login Succesfull");
+          navigate("/dashboard");
+        } else {
+        
+          setMessage("Invalid credentials ");
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          setMessage(error.response.data.message || " Invalid credentials");
+        } else {
+          setMessage(" Server not reachable");
+        }
+      });
+  };
+
+  return (
     <div className="Container-fluid d-flex flex-wrap justify-content-center">
-    
-        <div className="col-md-3 d-flex m-5 ">
-            <form className="mx-auto shadow p-4 rounded" >
-                <h1 className="text-center mb-4">User Login</h1>
-                <div className="mb-3">
-                    <label htmlFor="Employee_ID" className="form-label">E-mail</label>
-                    <input type="email" className="form-control" id="Enployee-Mail" placeholder="Enter E-Mail" required />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="pass" className="form-label">Enter Your Password</label>
-                    <input type="password" className="form-control" id="pass" required />
-                </div>
-                 <div className="">
-                    <button className="btn btn-primary" onClick={() => navigate("/dashboard")}>Login</button>
-                </div>
-                <p>
-                    Don't have an account?
-                <button className="btn btn-primary m-2" onClick={() => navigate("/register")}>Register</button>
-                </p>
-                
-      
-                </form>
-                </div>
-                </div>
-                </>
-);
+      <div className="col-md-3 d-flex m-5 ">
+        <form className="mx-auto shadow p-4 rounded" onSubmit={handleLogin}>
+          <h1 className="text-center mb-4">User Login</h1>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">
+              Email
+            </label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              placeholder="Enter Username"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">
+              Enter Your Password
+            </label>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <button className="btn btn-primary w-100">Login</button>
+          </div>
+
+          <p>
+            {" "}
+            Don't have an account?
+            <button
+              type="button"
+              className="btn btn-secondary m-2"
+              onClick={() => navigate("/register")}
+            >
+              Register
+            </button>
+          </p>
+
+          {message && <p className="text-center">{message}</p>}
+        </form>
+      </div>
+    </div>
+  );
 }
