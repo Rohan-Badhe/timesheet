@@ -26,11 +26,11 @@ Efficiently track, manage, and visualize your work hours with a modern, interact
 ## 🛠️ Tech Stack
 
 - **Frontend**: React.js (with Hooks & Context API)
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB (via Mongoose)
+- **Backend**: Spring Boot 
+- **Database**: My Sql
 - **Authentication**: JWT, bcrypt
-- **Styling**: CSS Modules / Tailwind CSS
-- **Other**: Axios, Chart.js (for stats)
+- **Styling**: Bootstrap
+- **Other**: Axios.
 
 ---
 
