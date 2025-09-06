@@ -1,42 +1,46 @@
-import logo from "./logo.svg";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route ,Navigate } from "react-router-dom";
 import "./App.css";
-import React from "react";
 import Userregistration from "./component/Userregistration";
 import Login from "./component/login";
-import Sidebar from "./component/sidebar";
-import Navbar from "./component/navbar";
 import Dashboard from "./component/Dashboard";
-import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
-import EmpInfo from "./component/EmpInfo";
-import Footer from "./component/footer";
-import { useState } from "react";
 import TaskList from "./component/TaskList";
-import Layout from "./component/Layout";
 import Employees from "./component/Employees";
 import Profile from "./component/profile";
-
+import Show from "./component/show";
 function App() {
-  const [page, setPage] = useState("login");
+  const [isLogin, setIsLogin] = useState(false);
+  // Check sessionStorage once when app loads
+  useEffect(() => {
+    const storedLogin = sessionStorage.getItem("islogin");
+    setIsLogin(storedLogin === "1");
+  }, []);
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Userregistration />} />
-
-          <Route path="/" element={<Layout />}>
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="task-list" element={<TaskList />} />
-            <Route path="empinfo" element={<EmpInfo />} />
-            <Route path="employees" element={<Employees />} />
+    <Router>
+      <Routes>
+        {!isLogin ? (
+          <>
+            <Route path="/login" element={<Login onLogin={() => {
+              sessionStorage.setItem("islogin", "1");
+              setIsLogin(true);
+            }} />} />
+            <Route path="/register" element={<Userregistration />} />
+            {/* If not logged in, redirect everything else to login */}
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          </>
+        ) : (
+          <>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/task-list" element={<TaskList />} />
+            <Route path="/employees" element={<Employees />} />
             <Route path="/profile" element={<Profile />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </>
+            <Route path="/show" element={<Show />} />
+            {/* Default route after login */}
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          </>
+        )}
+      </Routes>
+    </Router>
   );
 }
-
 export default App;
