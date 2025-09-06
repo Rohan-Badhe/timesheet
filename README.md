@@ -147,7 +147,7 @@ This project is licensed under the [MIT License](LICENSE).
 For questions, feedback, or suggestions:
 
 - GitHub: [Rohan-Badhe](https://github.com/Rohan-Badhe)
-- Email: your.email@example.com
+- Email: rohanbadhe97@gmail.com
 
 ---
 
