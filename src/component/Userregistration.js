@@ -23,19 +23,6 @@ export default function Userregistration({ onBackToLogin }) {
     setProfilePic(e.target.files[0]);
   };
 
-
-  // const register = {
-  //   fullName,
-  //   emailId,
-  //   contactNo,
-  //   address,
-  //   designation,
-  //   dateOfBirth,
-  //   profilePic,
-  //   password,
-  //   confirmPassword,
-  //   gender,
-  // };
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
@@ -45,7 +32,6 @@ export default function Userregistration({ onBackToLogin }) {
       });
       return false;
     }
-    // console.log(register);
     const token = sessionStorage.getItem("user");
     const formData = new FormData();
     formData.append("profilePic", profilePic);
@@ -186,7 +172,7 @@ export default function Userregistration({ onBackToLogin }) {
               Password
             </label>
             <input
-              type= {showConfirmPassword ?  "text" :"password" }
+              type= {showPassword ?  "text" :"password" }
               className="form-control"
               id="pass"
               value={password}
@@ -206,9 +192,9 @@ export default function Userregistration({ onBackToLogin }) {
                 />
           </div>
           <div className="col-md-6">
-            <label className="form-label">Confirm Password</label>
+            <label htmlFor="check" className="form-label">Confirm Password</label>
             <input
-              type= {showPassword ?  "text" :"password" }
+              type= {showConfirmPassword ?  "text" :"password" }
               className="form-control"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -220,9 +206,9 @@ export default function Userregistration({ onBackToLogin }) {
                     className="m-2"
                     id="check"
                     type="checkbox"
-                    value={showPassword}
+                    value={showConfirmPassword}
                     onChange={() =>
-                        setShowPassword((prev) => !prev)
+                        setShowConfirmPassword((prev) => !prev)
                     }
                 />
           </div>

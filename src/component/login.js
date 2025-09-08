@@ -1,35 +1,29 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Time from "../assets/t.png";
 
 export default function Login({ onLogin }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [userdata, setUserdata] = useState("");
   const [message, setMessage] = useState("");
 
   const handleLogin = (event) => {
     event.preventDefault();
 
-    const loginData = {
-      email: email,
-      password: password,
-    };
+    const loginData = { email, password };
 
     axios
       .post("http://192.168.0.118:8082/api/auth/login", loginData)
       .then((response) => {
         if (response.data) {
           console.log(response.data);
-          sessionStorage.setItem(
-            "user",
-            JSON.stringify(response.data.employee)
-          );
+          sessionStorage.setItem("user", JSON.stringify(response.data.employee));
           sessionStorage.setItem("islogin", 1);
-          setMessage(" Login Successful");
-          alert("Login Succesfull");
+          setMessage("Login Successful");
+          alert("Login Successful");
           onLogin();
           navigate("/dashboard");
         } else {
@@ -45,67 +39,97 @@ export default function Login({ onLogin }) {
         }
       });
   };
-    
+
   return (
-    <div className="Container-fluid d-flex flex-wrap justify-content-center">
-      <div className="col-md-3 d-flex m-5 ">
-        <form className="mx-auto shadow p-4 rounded" onSubmit={handleLogin}>
-          <h1 className="text-center mb-4">User Login</h1>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              placeholder="Enter Username"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Enter Your Password
-            </label>
-            <input
-              type= {showPassword ?  "text" :"password" }
-              className="form-control"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter Password"
-              required
-            />
-            <label for="check">Show Password</label>
+    <div
+      className="container-fluid min-vh-100 d-flex justify-content-center align-items-center"
+      style={{
+        backgroundImage: `url(${Time})`, // full bg
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+       
+        position: "relative",
+      }}
+    >
+      {/* dark overlay for better readability
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(0,0,0,0.5)",
+        }}
+      ></div> */}
+
+      {/* Login Card */}
+      <div className="col-md-4 position-relative ms-auto me-5"> 
+        <div className="card bg-transparent rounded-3 p-4 bg-white bg-opacity-75 shadow-lg">
+          <h2 className="text-center mb-4 text-dark fw-bold">User Login</h2>
+          <form onSubmit={handleLogin}>
+            <div className="mb-3 ">
+              <label htmlFor="email" className="form-label fw-semibold ">
+                Email Address
+              </label>
+              <input
+                type="email"
+                className="form-control form-control-lg bg-transparent border-1 border-lite"
+                id="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label fw-semibold">
+                Password
+              </label>
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form-control form-control-lg bg-transparent border-1 border-lite"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                required
+              />
+              <div className="form-check mt-2">
                 <input
-                    className="m-2"
-                    id="check"
-                    type="checkbox"
-                    value={showPassword}
-                    onChange={() =>
-                        setShowPassword((prev) => !prev)
-                    }
+                  className="form-check-input bg-transparent border-1 border-dark"
+                  type="checkbox"
+                  id="check"
+                  checked={showPassword}
+                  onChange={() => setShowPassword((prev) => !prev)}
                 />
-          </div>
-          <div className="mb-3">
-            <button className="btn btn-primary w-100">Login</button>
-          </div>
+                <label className="form-check-label" htmlFor="check">
+                  Show Password
+                </label>
+              </div>
+            </div>
 
-          <p>
-            Don't have an account?
-            <button
-              type="button"
-              className="btn btn-secondary m-2"
-              onClick={() => navigate("/register")}
-            >
-              Register
-            </button>
-          </p>
+            <div className="d-grid mb-3">
+              <button className="btn btn-primary btn-lg">Login</button>
+            </div>
 
-          {message && <p className="text-center">{message}</p>}
-        </form>
+            <p className="text-center">
+              Don’t have an account?{" "}
+              <button
+                type="button"
+                className="btn btn-secondary text-white btn-outline-secondary btn-sm ms-2"
+                onClick={() => navigate("/register")}
+              >
+                Register
+              </button>
+            </p>
+
+            {message && (
+              <p className="text-center text-danger fw-semibold">{message}</p>
+            )}
+          </form>
+        </div>
       </div>
     </div>
   );

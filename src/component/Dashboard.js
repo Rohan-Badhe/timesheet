@@ -1,13 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   Card,
-  Row,
-  Col,
-  Table,
   Button,
   Modal,
   Form,
-  Pagination,
+
 } from "react-bootstrap";
 import { FaTasks } from "react-icons/fa";
 import { GoTasklist } from "react-icons/go";
@@ -40,7 +37,6 @@ export default function Dashboard({ showProfile }) {
       scrollX: true,
       autoWidth: false,
     });
-
     return () => {
       table.destroy();
     };
