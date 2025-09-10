@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
+import Times from "../assets/time1.png";
 export default function Userregistration({ onBackToLogin }) {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
@@ -42,7 +43,7 @@ export default function Userregistration({ onBackToLogin }) {
     formData.append("contactNo", contactNo);
     formData.append("DateOfBirth", dateOfBirth);
     formData.append("Designation", designation);
-    formData.append("Password" ,password);
+    formData.append("Password", password);
 
     for (let [key, value] of formData.entries()) {
       console.log(`${key} :${value}`);
@@ -64,178 +65,194 @@ export default function Userregistration({ onBackToLogin }) {
   };
   return (
     <>
-      <div className="container d-flex my-5">
-        <form
-          className="mx-auto shadow p-4 rounded bg-light bg-gradient row g-3"
-          style={{ maxWidth: "900px" }}
-          onSubmit={handleSubmit} encType="multipart/form-data"
-        >
-          <h1 className="text-center mb-4">Create an Account</h1>
+      <div
+        className="d-flex justify-content-center align-items-center min-vh-100 bg-light bg-opacity-75"
+        style={{
+          backgroundImage: `url(${Times})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          
+        }}
+      >
+        <div className="col-md-6 container position-relative ms-auto me-5 ">
+          <form
+            className="mx-auto shadow p-4 rounded  row g-3 bg-transperent "
+            style={{ maxWidth: "900px" }}
+            onSubmit={handleSubmit}
+            encType="multipart/form-data"
+          >
+            <h1 className="text-center mb-4">Create an Account</h1>
 
-          <div className="col-md-6">
-            <label htmlFor="name" className="form-label">
-              Name
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              placeholder="Enter Name"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-6">
-            <label htmlFor="dob" className="form-label">
-              Date Of Birth
-            </label>
-            <input
-              type="date"
-              className="form-control"
-              id="dob"
-              value={dateOfBirth}
-              onChange={(e) => setDateOfBirth(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-6">
-            <label htmlFor="gender" className="form-label">
-              Gender
-            </label>
-            <select id="gender" value={gender} onChange={(e)=>setGender(e.target.value)}  className="form-select" required>
-              <option value="">Select Option</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <div className="col-md-6">
-            <label htmlFor="contact" className="form-label">
-              Contact Info
-            </label>
-            <input
-              type="number"
-              className="form-control"
-              id="contact"
-              placeholder="Enter Contact Info"
-              value={contactNo}
-              onChange={(e) => setContactNo(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-6">
-            <label htmlFor="email" className="form-label">
-              E-mail Address
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              placeholder="Enter E-mail Address"
-              value={emailId}
-              onChange={(e) => setEmailId(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-6">
-            <label htmlFor="permAddress" className="form-label">
-              Address
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="permAddress"
-              placeholder="Enter Permanent Address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              required
-            />
-          </div>
+            <div className="col-md-6">
+              <label htmlFor="name" className="form-label">
+                Name
+              </label>
+              <input
+                type="text"
+                className="form-control border-0 border-bottom border-secondary bg-transparent mb-3 
+                  "
+                id="name"
+                placeholder="Enter Name"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="col-md-6">
+              <label htmlFor="dob" className="form-label">
+                Date Of Birth
+              </label>
+              <input
+                type="date"
+                className="form-control border-0 border-bottom border-secondary bg-transparent mb-3"
+                id="dob"
+                value={dateOfBirth}
+                onChange={(e) => setDateOfBirth(e.target.value)}
+                required
+              />
+            </div>
+            <div className="col-md-6">
+              <label htmlFor="gender" className="form-label">
+                Gender
+              </label>
+              <select
+                id="gender"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                className="form-select border-0 border-bottom border-secondary bg-transparent mb-3"
+                required
+              >
+                <option value="">Select Option</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div className="col-md-6">
+              <label htmlFor="contact" className="form-label ">
+                Contact Info
+              </label>
+              <input
+                type="number"
+                className="form-control border-0 border-bottom border-secondary bg-transparent mb-3"
+                id="contact"
+                placeholder="Enter Contact Info"
+                value={contactNo}
+                onChange={(e) => setContactNo(e.target.value)}
+                required
+              />
+            </div>
+            <div className="col-md-6">
+              <label htmlFor="email" className="form-label">
+                E-mail Address
+              </label>
+              <input
+                type="email"
+                className="form-control border-0 border-bottom border-secondary bg-transparent mb-3"
+                id="email"
+                placeholder="Enter E-mail Address"
+                value={emailId}
+                onChange={(e) => setEmailId(e.target.value)}
+                required
+              />
+            </div>
+            <div className="col-md-6">
+              <label htmlFor="permAddress" className="form-label">
+                Address
+              </label>
+              <input
+                type="text"
+                className="form-control border-0 border-bottom border-secondary bg-transparent mb-3"
+                id="permAddress"
+                placeholder="Enter Permanent Address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                required
+              />
+            </div>
 
-          <div className="col-md-6">
-            <label htmlFor="designation" className="form-label">
-              Designation
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="designation"
-              placeholder="Enter Designation"
-              value={designation}
-              onChange={(e) => setDesignation(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-6">
-            <label htmlFor="pass" className="form-label">
-              Password
-            </label>
-            <input
-              type= {showPassword ?  "text" :"password" }
-              className="form-control"
-              id="pass"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              placeholder="Enter Password"
-            />
-          <label htmlFor="check1">Show Password</label>
-                <input
-                    className="m-2"
-                    id="check1"
-                    type="checkbox"
-                    value={showPassword}
-                    onChange={() =>
-                        setShowPassword((prev) => !prev)
-                    }
-                />
-          </div>
-          <div className="col-md-6">
-            <label htmlFor="check" className="form-label">Confirm Password</label>
-            <input
-              type= {showConfirmPassword ?  "text" :"password" }
-              className="form-control"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Re-enter Password"
-              required
-            />
-            <label htmlFor="check">Show Password</label>
-                <input
-                    className="m-2"
-                    id="check"
-                    type="checkbox"
-                    value={showConfirmPassword}
-                    onChange={() =>
-                        setShowConfirmPassword((prev) => !prev)
-                    }
-                />
-          </div>
-          <div className="col-md-12">
-            <label className="form-label">Profile Picture</label>
-            <input
-              type="file"
-              className="form-control"
-              onChange={handleFileChange}
-              required
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Register{" "}
-          </button>
-
-          <p className="text-center">
-            Already have an account?
-            <button
-              className="btn btn-primary m-3"
-              onClick={() => navigate("/login")}
-            >
-              Go to Login{" "}
+            <div className="col-md-6">
+              <label htmlFor="designation" className="form-label">
+                Designation
+              </label>
+              <input
+                type="text"
+                className="form-control border-0 border-bottom border-secondary bg-transparent mb-3"
+                id="designation"
+                placeholder="Enter Designation"
+                value={designation}
+                onChange={(e) => setDesignation(e.target.value)}
+                required
+              />
+            </div>
+            <div className="col-md-6">
+              <label htmlFor="pass" className="form-label">
+                Password
+              </label>
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form-control border-0 border-bottom border-secondary bg-transparent mb-3"
+                id="pass"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Enter Password"
+              />
+              <label htmlFor="check1">Show Password</label>
+              <input
+                className="border-1 border-dark ms-2"
+                id="check1"
+                type="checkbox"
+                value={showPassword}
+                onChange={() => setShowPassword((prev) => !prev)}
+              />
+            </div>
+            <div className="col-md-6">
+              <label htmlFor="check" className="form-label">
+                Confirm Password
+              </label>
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                className="form-control border-0 border-bottom border-secondary bg-transparent mb-3"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Re-enter Password"
+                required
+              />
+              <label htmlFor="check">Show Password</label>
+              <input
+                className=" border-1 border-dark ms-2"
+                id="check"
+                type="checkbox"
+                value={showConfirmPassword}
+                onChange={() => setShowConfirmPassword((prev) => !prev)}
+              />
+            </div>
+            <div className="col-md-12">
+              <label className="form-label">Profile Picture</label>
+              <input
+                type="file"
+                className="form-control border-0 border-bottom border-secondary bg-transparent mb-3"
+                onChange={handleFileChange}
+                required
+              />
+            </div>
+            <button type="submit" className="btn btn-primary">
+              Register{" "}
             </button>
-          </p>
-        </form>
-        {message && <p>{message}</p>}
+
+            <p className="text-center">
+              Already have an account?
+              <button
+                className="btn btn-primary m-3"
+                onClick={() => navigate("/login")}
+              >
+                Go to Login{" "}
+              </button>
+            </p>
+          </form>
+          {message && <p>{message}</p>}
+        </div>
       </div>
     </>
   );

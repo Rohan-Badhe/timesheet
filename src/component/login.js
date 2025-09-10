@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Time from "../assets/t.png";
+import Time from "../assets/t2.png";
 
 export default function Login({ onLogin }) {
   const navigate = useNavigate();
@@ -9,6 +9,7 @@ export default function Login({ onLogin }) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
+  
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -20,7 +21,10 @@ export default function Login({ onLogin }) {
       .then((response) => {
         if (response.data) {
           console.log(response.data);
-          sessionStorage.setItem("user", JSON.stringify(response.data.employee));
+          sessionStorage.setItem(
+            "user",
+            JSON.stringify(response.data.employee)
+          );
           sessionStorage.setItem("islogin", 1);
           setMessage("Login Successful");
           alert("Login Successful");
@@ -47,7 +51,8 @@ export default function Login({ onLogin }) {
         backgroundImage: `url(${Time})`, // full bg
         backgroundSize: "cover",
         backgroundPosition: "center",
-       
+        maxWidth: "100%",
+        height: "auto",
         position: "relative",
       }}
     >
@@ -64,17 +69,17 @@ export default function Login({ onLogin }) {
       ></div> */}
 
       {/* Login Card */}
-      <div className="col-md-4 position-relative ms-auto me-5"> 
+      <div className="col-md-4 position-relative justify-content-center me-5">
         <div className="card bg-transparent rounded-3 p-4 bg-white bg-opacity-75 shadow-lg">
           <h2 className="text-center mb-4 text-dark fw-bold">User Login</h2>
           <form onSubmit={handleLogin}>
             <div className="mb-3 ">
-              <label htmlFor="email" className="form-label fw-semibold ">
+              <label htmlFor="email" className="form-label  fw-semibold ">
                 Email Address
               </label>
               <input
                 type="email"
-                className="form-control form-control-lg bg-transparent border-1 border-lite"
+                className="form-control form-control-lg  border-0 border-bottom border-secondary bg-transparent mb-3"
                 id="email"
                 placeholder="Enter your email"
                 value={email}
@@ -89,7 +94,7 @@ export default function Login({ onLogin }) {
               </label>
               <input
                 type={showPassword ? "text" : "password"}
-                className="form-control form-control-lg bg-transparent border-1 border-lite"
+                className="form-control form-control-lg border-0 border-bottom border-secondary bg-transparent mb-3"
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -98,7 +103,7 @@ export default function Login({ onLogin }) {
               />
               <div className="form-check mt-2">
                 <input
-                  className="form-check-input bg-transparent border-1 border-dark"
+                  className="me-2 bg-transparent border-1 border-dark"
                   type="checkbox"
                   id="check"
                   checked={showPassword}

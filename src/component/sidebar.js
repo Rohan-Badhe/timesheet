@@ -1,42 +1,75 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaHome, FaAlipay, FaRegUser } from "react-icons/fa";
 import { FcLeave, FcDataSheet } from "react-icons/fc";
 import { MdOutlineShutterSpeed, MdCoPresent } from "react-icons/md";
 import { CiSettings } from "react-icons/ci";
-import { IoIosLogOut } from "react-icons/io";
 import { FaUsers } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 function Sidebar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  // Auto-collapse on small screens
+  useEffect(() => {
+    const handleResize = () => {
+      window.requestAnimationFrame(() => {
+        if (window.innerWidth < 768) {
+          setIsCollapsed(true);
+        } else {
+          setIsCollapsed(false);
+        }
+      });
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
     <div
-      className="bg-light border-end d-sm-block"
-      style={{ width: "220px", height: "100vh" }}
+      className={`bg-light border-end d-sm-block ${
+        isCollapsed ? "collapsed" : ""
+      }`}
+      style={{
+        width: isCollapsed ? "70px" : "250px",
+        height: "100vh",
+        transition: "width 0.3s ease",
+      }}
     >
-      <div className="d-flex flex-column">
-        <h3 className="ms-5 mb-5">
-          <FcDataSheet className="ms-5" size={50} /> Timesheet
-        </h3>
+      <div className="d-flex flex-column p-2">
+        <button
+          className="btn btn-sm btn-outline-secondary ms-auto mb-3"
+          onClick={toggleSidebar}
+        >
+          ☰
+        </button>
+
+        <div className="sidebar-header d-flex align-items-center p-2">
+          <FcDataSheet size={40} className="me-2" />
+          {!isCollapsed && <h3 className="m-0">Timesheet</h3>}
+        </div>
       </div>
 
-      {/* Sidebar Nav */}
+      {/* Sidebar Navigation */}
       <div className="flex-column p-2 text-dark" style={{ fontSize: "1.3rem" }}>
         <Link
           to="/task-list"
           className="d-flex text-dark align-items-center ms-3 text-decoration-none mb-4"
         >
           <FaHome className="me-3" />
-          TaskList
+          {!isCollapsed && "TaskList"}
         </Link>
 
-        <Link
+         <Link
           to="/employees"
           className="d-flex text-dark align-items-center ms-3 text-decoration-none mb-4"
         >
-          <FaUsers className="me-3" />
-          Employees
+          <FaHome className="me-3" />
+          {!isCollapsed && "Employee"}
         </Link>
 
         <a
@@ -44,7 +77,7 @@ function Sidebar() {
           className="d-flex text-dark align-items-center ms-3 text-decoration-none mb-4"
         >
           <MdOutlineShutterSpeed className="me-3" />
-          Timesheet
+          {!isCollapsed && "Timesheet"}
         </a>
 
         <a
@@ -52,7 +85,7 @@ function Sidebar() {
           className="d-flex text-dark align-items-center ms-3 text-decoration-none mb-4"
         >
           <FaAlipay className="me-3" />
-          Payments
+          {!isCollapsed && "Payroll"}
         </a>
 
         <a
@@ -60,7 +93,7 @@ function Sidebar() {
           className="d-flex text-dark align-items-center ms-3 text-decoration-none mb-4"
         >
           <FcLeave className="me-3" />
-          Leave
+          {!isCollapsed && "Leave"}
         </a>
 
         <Link
@@ -68,27 +101,24 @@ function Sidebar() {
           className="d-flex text-dark align-items-center ms-3 text-decoration-none mb-4"
         >
           <MdCoPresent className="me-3" />
-          Dashboard
+          {!isCollapsed && "Dashboard"}
         </Link>
 
-        {/* <Link to="/profile" data-bs-toggle="modal" data-bs-target="#profileModal" className="d-flex text-dark align-items-center ms-3 text-decoration-none mb-4">
-          <FaRegUser className="me-3" />
-          Profile
-        </Link> */}
+        <Link
+          to="/show"
+          className="d-flex text-dark align-items-center ms-3 text-decoration-none mb-4"
+        >
+          <MdCoPresent className="me-3" />
+          {!isCollapsed && "Show"}
+        </Link>
 
         <a
           href="#"
           className="d-flex text-dark align-items-center ms-3 text-decoration-none mb-4"
         >
           <CiSettings className="me-3" />
-          Settings
+          {!isCollapsed && "Settings"}
         </a>
-        <Link
-          to={"/show "}
-          className="d-flex text-dark align-items-center ms-5 text-decoration-none mb-4"
-        >
-          Show{" "}
-        </Link>
       </div>
     </div>
   );
